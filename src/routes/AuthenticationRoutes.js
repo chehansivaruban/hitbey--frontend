@@ -2,21 +2,22 @@ import React, { lazy } from 'react';
 import Loadable from 'ui-component/Loadable';
 
 import MinimalLayout from 'layout/MinimalLayout';
+import { NAVIGATION_ROUTES } from './constant/RoutesConstant';
 
-const AuthLogin3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Login3')));
-const AuthRegister3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
+const LoginView = Loadable(lazy(() => import('views/login/controller/LoginController')));
+const RegisterView = Loadable(lazy(() => import('views/register/controller/RegisterController')));
 
 const AuthenticationRoutes = {
     path: '/',
     element: <MinimalLayout />,
     children: [
         {
-            path: '/pages/login/login3',
-            element: <AuthLogin3 />
+            path: NAVIGATION_ROUTES.signIn,
+            element: <LoginView />
         },
         {
-            path: '/pages/register/register3',
-            element: <AuthRegister3 />
+            path: NAVIGATION_ROUTES.register,
+            element: <RegisterView />
         }
     ]
 };

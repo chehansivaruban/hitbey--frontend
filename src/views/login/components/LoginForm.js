@@ -34,6 +34,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
+import Facebook from 'assets/images/icons/Facebook_Logo.png';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -74,9 +75,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//= ===========================|| FIREBASE - LOGIN ||============================//
-
-const FirebaseLogin = (props, { ...others }) => {
+const LoginForm = (props, { ...others }) => {
     const classes = useStyles();
 
     const customization = useSelector((state) => state.customization);
@@ -110,6 +109,20 @@ const FirebaseLogin = (props, { ...others }) => {
                             variant="contained"
                         >
                             <img src={Google} alt="google" width="20px" className={classes.loginIcon} /> Sign in with Google
+                        </Button>
+                    </AnimateButton>
+                </Grid>
+                <Grid item xs={12}>
+                    <AnimateButton>
+                        <Button
+                            disableElevation
+                            fullWidth
+                            className={classes.redButton}
+                            onClick={googleHandler}
+                            size="large"
+                            variant="contained"
+                        >
+                            <img src={Facebook} alt="facebook" width="25px" className={classes.loginIcon} /> Sign in with Facebook
                         </Button>
                     </AnimateButton>
                 </Grid>
@@ -249,7 +262,7 @@ const FirebaseLogin = (props, { ...others }) => {
                                 variant="subtitle1"
                                 component={Link}
                                 to="/pages/forgot-password/forgot-password3"
-                                color="secondary"
+                                color="primary"
                                 sx={{ textDecoration: 'none' }}
                             >
                                 Forgot Password?
@@ -278,7 +291,7 @@ const FirebaseLogin = (props, { ...others }) => {
                                     size="large"
                                     type="submit"
                                     variant="contained"
-                                    color="secondary"
+                                    color="primary"
                                 >
                                     Sign in
                                 </Button>
@@ -291,4 +304,4 @@ const FirebaseLogin = (props, { ...others }) => {
     );
 };
 
-export default FirebaseLogin;
+export default LoginForm;

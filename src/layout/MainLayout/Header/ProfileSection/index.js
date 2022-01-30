@@ -5,9 +5,10 @@ import { useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
     Avatar,
+    Box,
+    ButtonBase,
     Card,
     CardContent,
-    Chip,
     ClickAwayListener,
     Divider,
     Grid,
@@ -32,8 +33,8 @@ import Transitions from 'ui-component/extended/Transitions';
 import UpgradePlanCard from './UpgradePlanCard';
 
 // assets
-import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
-import User1 from 'assets/images/users/user-round.svg';
+import PersonIcon from '@material-ui/icons/Person';
+import { IconLogout, IconSearch } from '@tabler/icons';
 
 // style const
 const useStyles = makeStyles((theme) => ({
@@ -112,8 +113,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// ===========================|| PROFILE MENU ||=========================== //
-
 const ProfileSection = () => {
     const classes = useStyles();
     const theme = useTheme();
@@ -151,27 +150,21 @@ const ProfileSection = () => {
     }, [open]);
     return (
         <>
-            <Chip
-                classes={{ label: classes.profileLabel }}
-                className={classes.profileChip}
-                icon={
+            <Box component="span">
+                <ButtonBase sx={{ borderRadius: '12px' }}>
                     <Avatar
-                        src={User1}
+                        variant="rounded"
                         className={classes.headerAvatar}
                         ref={anchorRef}
                         aria-controls={open ? 'menu-list-grow' : undefined}
                         aria-haspopup="true"
-                        color="inherit"
-                    />
-                }
-                label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
-                variant="outlined"
-                ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle}
-                color="primary"
-            />
+                        onClick={handleToggle}
+                        color="primary"
+                    >
+                        <PersonIcon stroke={1.5} size="1.3rem" />
+                    </Avatar>
+                </ButtonBase>
+            </Box>
             <Popper
                 placement="bottom-end"
                 open={open}

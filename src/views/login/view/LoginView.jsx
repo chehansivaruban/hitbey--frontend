@@ -1,27 +1,19 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-
-// material-ui
-import { useTheme } from '@material-ui/core/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
-
-// project imports
-import AuthWrapper1 from '../AuthWrapper1';
-import AuthCardWrapper from '../AuthCardWrapper';
+import { Link as RouterLink } from 'react-router-dom';
 import Logo from 'ui-component/Logo';
-import FirebaseRegister from '../firebase-forms/FirebaseRegister';
 import AuthFooter from 'ui-component/cards/AuthFooter';
+import { AuthCardWrapper, AuthWrapper } from 'ui-component/authentication';
+import LoginForm from '../components/LoginForm';
+import { useTheme } from '@material-ui/core/styles';
+import { NAVIGATION_ROUTES } from 'routes/constant/RoutesConstant';
 
-// assets
-
-//= ==============================|| AUTH3 - REGISTER ||===============================//
-
-const Register = () => {
+export const LoginView = () => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <AuthWrapper1>
+        <AuthWrapper>
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
@@ -43,11 +35,11 @@ const Register = () => {
                                             <Grid item>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
-                                                        color={theme.palette.secondary.main}
+                                                        color={theme.palette.primary.main}
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Sign up
+                                                        Hi, Welcome Back
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
                                                         Enter your credentials to continue
@@ -57,7 +49,7 @@ const Register = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <FirebaseRegister />
+                                        <LoginForm login={3} />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -66,11 +58,11 @@ const Register = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={RouterLink}
-                                                to="/pages/login/login3"
+                                                to={NAVIGATION_ROUTES.register}
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
-                                                Have an account?
+                                                Don&apos;t have an account?
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -79,12 +71,8 @@ const Register = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
-                </Grid>
+                <AuthFooter />
             </Grid>
-        </AuthWrapper1>
+        </AuthWrapper>
     );
 };
-
-export default Register;

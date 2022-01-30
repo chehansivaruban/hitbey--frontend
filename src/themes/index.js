@@ -16,8 +16,8 @@ const theme = (customization) => {
         darkTextPrimary: color.grey700,
         darkTextSecondary: color.grey500,
         textDark: color.grey900,
-        menuSelected: color.secondaryDark,
-        menuSelectedBack: color.secondaryLight,
+        menuSelected: color.primaryDark,
+        menuSelectedBack: color.primaryLight,
         divider: color.grey200,
         customization
     };
