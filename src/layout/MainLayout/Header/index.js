@@ -3,11 +3,10 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Box, ButtonBase } from '@material-ui/core';
+import { Avatar, Box, Button, ButtonBase } from '@material-ui/core';
 
 // project imports
 import LogoSection from '../LogoSection';
-import SearchSection from './SearchSection';
 import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
 
@@ -59,13 +58,16 @@ const Header = ({ handleLeftDrawerToggle }) => {
             </div>
 
             {/* header search */}
-            <SearchSection theme="light" />
+            {/*<SearchSection theme="light" />*/}
             <div className={classes.grow} />
             <div className={classes.grow} />
 
             {/* notification & profile */}
             <NotificationSection />
             <ProfileSection />
+            <Button variant="contained" sx={{ ml: 5, borderRadius: 3 }} size={'large'}>
+                Post Your AD
+            </Button>
         </>
     );
 };

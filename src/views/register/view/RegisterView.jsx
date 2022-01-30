@@ -1,27 +1,18 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-
-// material-ui
-import { useTheme } from '@material-ui/core/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
-
-// project imports
-import AuthWrapper1 from '../AuthWrapper1';
-import AuthCardWrapper from '../AuthCardWrapper';
-import FirebaseLogin from '../firebase-forms/FirebaseLogin';
+import { Link } from 'react-router-dom';
 import Logo from 'ui-component/Logo';
 import AuthFooter from 'ui-component/cards/AuthFooter';
+import { useTheme } from '@material-ui/core/styles';
+import { AuthCardWrapper, AuthWrapper } from 'ui-component/authentication';
+import { NAVIGATION_ROUTES } from 'routes/constant/RoutesConstant';
+import { RegisterForm } from '../components/RegisterForm';
 
-// assets
-
-//= ===============================|| AUTH3 - LOGIN ||================================//
-
-const Login = () => {
+export const RegisterView = () => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
-
     return (
-        <AuthWrapper1>
+        <AuthWrapper>
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
@@ -29,9 +20,9 @@ const Login = () => {
                             <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
-                                        <RouterLink to="#">
+                                        <Link to={NAVIGATION_ROUTES.signIn}>
                                             <Logo />
-                                        </RouterLink>
+                                        </Link>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid
@@ -43,11 +34,11 @@ const Login = () => {
                                             <Grid item>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
-                                                        color={theme.palette.secondary.main}
+                                                        color={theme.palette.primary.main}
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                        Sign up
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
                                                         Enter your credentials to continue
@@ -57,7 +48,7 @@ const Login = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <FirebaseLogin login={3} />
+                                        <RegisterForm />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -65,12 +56,12 @@ const Login = () => {
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
-                                                component={RouterLink}
-                                                to="/pages/register/register3"
+                                                component={Link}
+                                                to={NAVIGATION_ROUTES.signIn}
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
-                                                Don&apos;t have an account?
+                                                Have an account?
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -83,8 +74,6 @@ const Login = () => {
                     <AuthFooter />
                 </Grid>
             </Grid>
-        </AuthWrapper1>
+        </AuthWrapper>
     );
 };
-
-export default Login;

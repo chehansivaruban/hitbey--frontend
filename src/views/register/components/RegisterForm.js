@@ -1,9 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-// material-ui
-import { makeStyles } from '@material-ui/styles';
 import {
     Box,
     Button,
@@ -21,66 +16,26 @@ import {
     Typography,
     useMediaQuery
 } from '@material-ui/core';
-
-// third party
-import * as Yup from 'yup';
-import { Formik } from 'formik';
-
-// project imports
-import useScriptRef from 'hooks/useScriptRef';
-import Google from 'assets/images/icons/social-google.svg';
 import AnimateButton from 'ui-component/extended/AnimateButton';
-import { strengthColor, strengthIndicator } from 'utils/password-strength';
-
-// assets
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { Link } from 'react-router-dom';
+import { registerStyles } from '../style/RegisterStyle';
+import useScriptRef from 'hooks/useScriptRef';
+import { useSelector } from 'react-redux';
+import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import { useTheme } from '@material-ui/core/styles';
 
-// style constant
-const useStyles = makeStyles((theme) => ({
-    redButton: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        backgroundColor: theme.palette.grey[50],
-        border: '1px solid',
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[700],
-        textTransform: 'none',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '0.875rem'
-        }
-    },
-    signDivider: {
-        flexGrow: 1
-    },
-    signText: {
-        cursor: 'unset',
-        margin: theme.spacing(2),
-        padding: '5px 56px',
-        borderColor: `${theme.palette.grey[100]} !important`,
-        color: `${theme.palette.grey[900]}!important`,
-        fontWeight: 500
-    },
-    loginIcon: {
-        marginRight: '16px',
-        [theme.breakpoints.down('sm')]: {
-            marginRight: '8px'
-        }
-    },
-    loginInput: {
-        ...theme.typography.customInput
-    }
-}));
+import Google from 'assets/images/icons/social-google.svg';
+import Facebook from 'assets/images/icons/Facebook_Logo.png';
 
-//= ==========================|| FIREBASE - REGISTER ||===========================//
-
-const FirebaseRegister = ({ ...others }) => {
-    const classes = useStyles();
+export const RegisterForm = () => {
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const classes = registerStyles();
     const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const customization = useSelector((state) => state.customization);
     const [showPassword, setShowPassword] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
@@ -112,7 +67,7 @@ const FirebaseRegister = ({ ...others }) => {
 
     return (
         <>
-            <Grid container direction="column" justifyContent="center" spacing={2}>
+            <Grid container direction="column" justifyContent="center" spacing={1}>
                 <Grid item xs={12}>
                     <AnimateButton>
                         <Button
@@ -125,6 +80,21 @@ const FirebaseRegister = ({ ...others }) => {
                         >
                             <img src={Google} alt="google" width="20px" sx={{ mr: { xs: 1, sm: 2 } }} className={classes.loginIcon} /> Sign
                             up with Google
+                        </Button>
+                    </AnimateButton>
+                </Grid>
+                <Grid item xs={12}>
+                    <AnimateButton>
+                        <Button
+                            disableElevation
+                            fullWidth
+                            className={classes.redButton}
+                            onClick={googleHandler}
+                            size="large"
+                            variant="contained"
+                        >
+                            <img src={Facebook} alt="facebook" width="25px" sx={{ mr: { xs: 1, sm: 2 } }} className={classes.loginIcon} />{' '}
+                            Sign up with Facebook
                         </Button>
                     </AnimateButton>
                 </Grid>
@@ -165,11 +135,13 @@ const FirebaseRegister = ({ ...others }) => {
                 initialValues={{
                     email: 'info@codedthemes.com',
                     password: '123456',
+                    confirmPassword: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    password: Yup.string().max(255).required('Password is required'),
+                    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -188,7 +160,7 @@ const FirebaseRegister = ({ ...others }) => {
                 }}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit} {...others}>
+                    <form noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -303,6 +275,49 @@ const FirebaseRegister = ({ ...others }) => {
                             </FormControl>
                         )}
 
+                        <FormControl
+                            fullWidth
+                            error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                            className={classes.loginInput}
+                        >
+                            <InputLabel htmlFor="outlined-adornment-password-register">Confirm Password</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-password-register"
+                                type={showPassword ? 'text' : 'password'}
+                                value={values.confirmPassword}
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                onBlur={handleBlur}
+                                onChange={(e) => {
+                                    handleChange(e);
+                                    changePassword(e.target.value);
+                                }}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                                inputProps={{
+                                    classes: {
+                                        notchedOutline: classes.notchedOutline
+                                    }
+                                }}
+                            />
+                            {touched.confirmPassword && errors.confirmPassword && (
+                                <FormHelperText error id="standard-weight-helper-text-password-register">
+                                    {' '}
+                                    {errors.confirmPassword}{' '}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
+
                         <Grid container alignItems="center" justifyContent="space-between">
                             <Grid item>
                                 <FormControlLabel
@@ -348,7 +363,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     size="large"
                                     type="submit"
                                     variant="contained"
-                                    color="secondary"
+                                    color="primary"
                                 >
                                     Sign up
                                 </Button>
@@ -360,5 +375,3 @@ const FirebaseRegister = ({ ...others }) => {
         </>
     );
 };
-
-export default FirebaseRegister;
