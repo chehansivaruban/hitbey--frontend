@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
-import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
+import { AppBar, CssBaseline, Grid, Stack, Toolbar, Typography, useMediaQuery } from '@material-ui/core';
 import clsx from 'clsx';
 
 import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
@@ -15,6 +15,7 @@ import { SET_MENU } from 'store/actions';
 
 // assets
 import { IconChevronRight } from '@tabler/icons';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -116,6 +117,37 @@ const MainLayout = () => {
                     }
                 ])}
             >
+                <Grid
+                    item
+                    sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        ml: '-22px',
+                        mr: '-20px',
+                        mt: -2,
+                        p: 1,
+                        borderTopRightRadius: 10,
+                        borderTopLeftRadius: 10
+                    }}
+                >
+                    <Stack spacing={2} direction={'row'} justifyContent="space-between" sx={{ pl: 5, pr: 5 }}>
+                        <Typography variant={'h5'}>
+                            Trending Ads
+                            <KeyboardArrowDownIcon />{' '}
+                        </Typography>
+                        <Typography variant={'h5'}>
+                            End Soon Ads <KeyboardArrowDownIcon />{' '}
+                        </Typography>
+                        <Typography variant={'h5'}>
+                            New Ads <KeyboardArrowDownIcon />{' '}
+                        </Typography>
+                        <Typography variant={'h5'}>
+                            Vehicle Ads <KeyboardArrowDownIcon />{' '}
+                        </Typography>
+                        <Typography variant={'h5'}>
+                            Property Ads <KeyboardArrowDownIcon />{' '}
+                        </Typography>
+                    </Stack>
+                </Grid>
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                 <Outlet />

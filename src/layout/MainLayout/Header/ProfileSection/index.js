@@ -4,14 +4,13 @@ import { useSelector } from 'react-redux';
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
-    Avatar,
     Box,
-    ButtonBase,
     Card,
     CardContent,
     ClickAwayListener,
     Divider,
     Grid,
+    IconButton,
     InputAdornment,
     List,
     ListItemIcon,
@@ -33,7 +32,7 @@ import Transitions from 'ui-component/extended/Transitions';
 import UpgradePlanCard from './UpgradePlanCard';
 
 // assets
-import PersonIcon from '@material-ui/icons/Person';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { IconLogout, IconSearch } from '@tabler/icons';
 
 // style const
@@ -151,19 +150,16 @@ const ProfileSection = () => {
     return (
         <>
             <Box component="span">
-                <ButtonBase sx={{ borderRadius: '12px' }}>
-                    <Avatar
-                        variant="rounded"
-                        className={classes.headerAvatar}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        onClick={handleToggle}
-                        color="primary"
-                    >
-                        <PersonIcon stroke={1.5} size="1.3rem" />
-                    </Avatar>
-                </ButtonBase>
+                <Grid container alignItems={'center'} direction={'column'}>
+                    <Grid item>
+                        <IconButton ref={anchorRef} onClick={handleToggle}>
+                            <AccountCircleIcon stroke={1.5} size="1.3rem" />
+                        </IconButton>
+                    </Grid>
+                    <Grid item>
+                        <Typography>My Account</Typography>
+                    </Grid>
+                </Grid>
             </Box>
             <Popper
                 placement="bottom-end"

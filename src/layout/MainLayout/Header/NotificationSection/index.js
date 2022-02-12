@@ -4,16 +4,15 @@ import { Link } from 'react-router-dom';
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
-    Avatar,
     Box,
     Button,
-    ButtonBase,
     CardActions,
     CardContent,
     Chip,
     ClickAwayListener,
     Divider,
     Grid,
+    IconButton,
     Paper,
     Popper,
     Stack,
@@ -31,7 +30,7 @@ import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
 
 // assets
-import { IconBell } from '@tabler/icons';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -141,19 +140,16 @@ const NotificationSection = () => {
     return (
         <>
             <Box component="span" className={classes.box}>
-                <ButtonBase sx={{ borderRadius: '12px' }}>
-                    <Avatar
-                        variant="rounded"
-                        className={classes.headerAvatar}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        onClick={handleToggle}
-                        color="inherit"
-                    >
-                        <IconBell stroke={1.5} size="1.3rem" />
-                    </Avatar>
-                </ButtonBase>
+                <Grid container alignItems={'center'} direction={'column'}>
+                    <Grid item>
+                        <IconButton ref={anchorRef} onClick={handleToggle}>
+                            <NotificationsActiveIcon stroke={1.5} size="1.3rem" />
+                        </IconButton>
+                    </Grid>
+                    <Grid item>
+                        <Typography>Notifications</Typography>
+                    </Grid>
+                </Grid>
             </Box>
             <Popper
                 placement={matchesXs ? 'bottom' : 'bottom-end'}
